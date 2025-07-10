@@ -22,9 +22,20 @@ mitre_map = {
 
 
 
-# Load the model and data
+
+# Load the model
 model = joblib.load("model.pkl")
-data = pd.read_csv("test_data.csv")
+
+# Upload CSV feature
+st.sidebar.header("📁 Upload Your CSV File")
+uploaded_file = st.sidebar.file_uploader("Choose a CSV file", type=["csv"])
+
+if uploaded_file is not None:
+    data = pd.read_csv(uploaded_file)
+    st.success("✅ File uploaded successfully!")
+else:
+    st.warning("⚠️ Using default sample data.")
+    data = pd.read_csv("test_data.csv")
 
 st.set_page_config(page_title="EDR Dashboard", layout="wide")
 
